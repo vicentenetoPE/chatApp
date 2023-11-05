@@ -34,6 +34,14 @@ public class ContatoController {
 		return ResponseEntity.ok(contatos);
 		
 	}
+	@GetMapping("/contatos")
+	ResponseEntity<List<Contato>> getContatos2(){
+		List<Contato> contatos = contatoService.getContatos();
+		if(contatos.isEmpty())
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(contatos);
+		return ResponseEntity.ok(contatos);
+		
+	}
 	
 	@GetMapping("/{id}")
 	ResponseEntity<Contato> getContato(@PathVariable Long id) {
