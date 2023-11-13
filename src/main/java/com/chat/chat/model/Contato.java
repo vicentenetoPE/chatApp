@@ -26,6 +26,4 @@ public class Contato {
 	private String bairro;
 	private String cidade;
 	private String estado;
-	
-
 }

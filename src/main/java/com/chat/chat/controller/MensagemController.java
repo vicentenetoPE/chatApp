@@ -1,6 +1,7 @@
 package com.chat.chat.controller;
 
 import java.util.List;
+import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,9 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import com.chat.chat.dto.MensagemDTO;
 import com.chat.chat.model.Contato;
@@ -19,7 +21,9 @@ import com.chat.chat.model.Mensagem;
 import com.chat.chat.service.ContatoService;
 import com.chat.chat.service.MensagemService;
 
+
 @RestController
+@RequestMapping("/mensagem")
 public class MensagemController {
 	@Autowired
 	MensagemService mensagemService;
@@ -27,19 +31,27 @@ public class MensagemController {
 	@Autowired
 	ContatoService contatoService;
 	
-	@GetMapping("/mensagem/receber/{id}")
-	ResponseEntity<List<Mensagem>> getMensagens(@PathVariable Long id) {
-		Contato receptor = contatoService.getContato(id);
+	@GetMapping("/listar/{idUsuario}")
+	ResponseEntity<List<Mensagem>> getMensagens(@PathVariable Long idUsuario) {
+		Contato receptor = contatoService.getContato(idUsuario);
 		List<Mensagem> mensagens = mensagemService.getMensagens(receptor);
 		
 		if(mensagens.isEmpty()) 
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagens);
 		else 
 			return ResponseEntity.ok(mensagens);
-		
+	}
+
+	@GetMapping("/abrir/{idMensagem}")
+	ResponseEntity<Object> getMensagem(@PathVariable Long idMensagem) {
+		Mensagem mensagem = mensagemService.getMensagem(idMensagem);
+		if(mensagem.getId() == null) 
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Vector<>());
+		else 
+			return ResponseEntity.ok(mensagem);
 	}
 	
-	@PostMapping("/mensagem/enviar")
+	@PostMapping("/enviar")
 	ResponseEntity<Mensagem> setMensagem(@RequestBody MensagemDTO mensagemDTO) {
 		Contato emissor = contatoService.getContato(mensagemDTO.getEmissor());
 		Contato receptor = contatoService.getContato(mensagemDTO.getReceptor());
@@ -54,16 +66,8 @@ public class MensagemController {
 		return ResponseEntity.created(null).body(mensagem);
 	}
 	
-	@PutMapping("/mensagem/editar/{id}")
-	ResponseEntity<Mensagem> setMensagem(@RequestBody Mensagem mensagem, @PathVariable Long id) {
-		try {
-			return ResponseEntity.accepted().body(mensagemService.setMensagem(id, mensagem));
-		} catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Mensagem());
-		}
-	}
 	
-	@DeleteMapping("/mensagem/deletar/{id}")
+	@DeleteMapping("/deletar/{id}")
 	ResponseEntity<Mensagem> deleteMensagem(@PathVariable Long id) {
 		try {
 			mensagemService.deleteMensagem(id);

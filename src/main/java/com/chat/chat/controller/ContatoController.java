@@ -34,6 +34,7 @@ public class ContatoController {
 		return ResponseEntity.ok(contatos);
 		
 	}
+	
 	@GetMapping("/contatos")
 	ResponseEntity<List<Contato>> getContatos2(){
 		List<Contato> contatos = contatoService.getContatos();

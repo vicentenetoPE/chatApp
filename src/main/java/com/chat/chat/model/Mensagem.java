@@ -25,6 +25,7 @@ public class Mensagem {
 	private Long id;
     
     private String conteudo;
+    private String Assunto;
     private Calendar dataHora = Calendar.getInstance();
         
     @OneToOne
