@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import com.chat.chat.model.Contato;
 import com.chat.chat.service.ContatoService;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @RestController
 @RequestMapping("/contato")
 public class ContatoController {
@@ -26,7 +29,7 @@ public class ContatoController {
     @Autowired
     ContatoService contatoService;
 
-	@GetMapping
+	@GetMapping("/listar")
 	ResponseEntity<List<Contato>> getContatos(){
 		List<Contato> contatos = contatoService.getContatos();
 		if(contatos.isEmpty())
@@ -35,14 +38,6 @@ public class ContatoController {
 		
 	}
 	
-	@GetMapping("/contatos")
-	ResponseEntity<List<Contato>> getContatos2(){
-		List<Contato> contatos = contatoService.getContatos();
-		if(contatos.isEmpty())
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(contatos);
-		return ResponseEntity.ok(contatos);
-		
-	}
 	
 	@GetMapping("/{id}")
 	ResponseEntity<Contato> getContato(@PathVariable Long id) {
@@ -51,10 +46,9 @@ public class ContatoController {
 		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Contato());
 		}
-		
 	}
 	
-	@PostMapping
+	@PostMapping("/criar")
 	ResponseEntity<Contato> setContato(@RequestBody Contato contato) {
 		contatoService.setContato(contato);
 		return ResponseEntity.created(null).body(contato);

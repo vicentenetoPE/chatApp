@@ -1,0 +1,28 @@
+body{
+    padding: 20px;
+}
+.mainContent{
+    display: flex;
+    gap:10px;
+}
+.bi{
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+}
+
+#listaDeContatos{
+    flex:4;
+
+
+}
+
+#criaContato{
+    flex:1;
+    background-color: rgb(229, 228, 228);
+    padding: 10px;
+
+}
+nav{
+    margin-bottom: 20px;
+}

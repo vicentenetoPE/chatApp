@@ -8,6 +8,7 @@ import  com.chat.chat.model.Contato;
 import  com.chat.chat.model.Mensagem;
 
 public interface MensagemRepository extends JpaRepository<Mensagem, Long>{
-	List<Mensagem> findAllByReceptor(Contato receptor);
+	List<Mensagem> findByReceptor(Contato receptor);
+	List<Mensagem> findByEmissor(Contato emissor);
 }
 

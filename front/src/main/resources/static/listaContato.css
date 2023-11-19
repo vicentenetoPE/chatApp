@@ -1,0 +1,15 @@
+tr{
+    :hover{
+        cursor: pointer;
+    }
+}
+.iconsCel{
+    width: fit-content;
+    padding: 5px;
+}
+a{
+    color: #000;
+}
+table{
+    border: 1px solid gray;
+}

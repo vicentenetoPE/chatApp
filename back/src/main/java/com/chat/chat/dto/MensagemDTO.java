@@ -1,28 +1,19 @@
 package com.chat.chat.dto;
 
-
-import java.util.Calendar;
-
 public class MensagemDTO {
-	private Calendar dataHora;
 	private String conteudo;
 	private Long emissor;
 	private Long receptor;
+	private String assunto;
 	
-	public MensagemDTO(Calendar dataHora, String conteudo, Long emissor, Long receptor) {
+	public MensagemDTO(String conteudo, String assunto, Long emissor, Long receptor) {
 		super();
-		this.dataHora = dataHora;
+		this.assunto = assunto;
 		this.conteudo = conteudo;
 		this.emissor = emissor;
 		this.receptor = receptor;
 	}
 	
-	public Calendar getDataHora() {
-		return dataHora;
-	}
-	public void setDataHora(Calendar dataHora) {
-		this.dataHora = dataHora;
-	}
 	public String getConteudo() {
 		return conteudo;
 	}
@@ -41,4 +32,11 @@ public class MensagemDTO {
 	public void setReceptor(Long receptor) {
 		this.receptor = receptor;
 	}
+	public String getAssunto() {
+		return assunto;
+	}
+
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}	
 }

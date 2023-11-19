@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Entity;
 
@@ -25,14 +27,12 @@ public class Mensagem {
 	private Long id;
     
     private String conteudo;
-    private String Assunto;
+    private String assunto;
     private Calendar dataHora = Calendar.getInstance();
         
-    @OneToOne
-    @JoinColumn(name = "emissor_id")
+	@ManyToOne
     private Contato emissor;
 
-    @OneToOne
-    @JoinColumn(name = "receptor_id")
+	@ManyToOne
     private Contato receptor;
 }
