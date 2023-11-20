@@ -7,8 +7,10 @@ import java.time.format.DateTimeFormatter;
 import com.front.chat.dto.MensagemDTO;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Mensagem {
     private long id;
     private long emissor;
@@ -32,9 +34,6 @@ public class Mensagem {
         this.assunto = mensagemDTO.getAssunto();
         this.dataHora = formatDateHour(mensagemDTO.getDataHora());
         this.id = mensagemDTO.getId();
-    }
-
-    public Mensagem() {
     }
 
  }

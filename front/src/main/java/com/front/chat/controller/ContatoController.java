@@ -1,28 +1,20 @@
 package com.front.chat.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.front.chat.model.Contato;
 import com.front.chat.service.ContatoService;
-
 import lombok.extern.log4j.Log4j2;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Log4j2
 @Controller
@@ -33,36 +25,26 @@ public class ContatoController {
 	private ContatoService contatoService;
 
 	@GetMapping
-	public String listar(Model model) {
+	public String listAll(Model model) {
 		try {
 			List<Contato> contatos = contatoService.getContatos();
 			model.addAttribute("contatos", contatos);
 		} catch (Exception e) {
-		}
-		return "listaContato.html";
-	}
-
-	@GetMapping("/{id}")
-	public void listar1(Long id) {
-		contatoService.getContato(id);
+			log.error("Erro ao listar contatos", e);		}
+		return "listaContato";
 	}
 
 	@GetMapping("/novo")
-	public String novoContato(Contato contato) {
+	public String newContact(Contato contato) {
 		return "criaContato";
 	}
 
 	@GetMapping("/alterar/{contatoId}")
-	public String alterarContato(@PathVariable Long contatoId, Model model) {
+	public String editContact(@PathVariable Long contatoId, Model model) {
 		model.addAttribute("contato", contatoService.getContato(contatoId));
 		return "alterarContato";
 	}
 
-	@GetMapping("/listar")
-	public String listarContatos(Model model) {
-		model.addAttribute("contatos", contatoService.getContatos());
-		return "listaContato";
-	}
 
 	@PostMapping
 	public String inserirContato(Contato contato, BindingResult result, Model model) {
