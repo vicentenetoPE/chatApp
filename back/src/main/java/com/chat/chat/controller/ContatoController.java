@@ -59,7 +59,7 @@ public class ContatoController {
 		try {
 			return ResponseEntity.accepted().body(contatoService.setContato(id, contato));
 		} catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Contato());
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Contato());
 		}
 	
 	}

@@ -34,6 +34,9 @@ public class MensagemService {
     public List<Mensagem> getMensagens(Long userId) {
         String resource = "/listarRecebidas/"+userId;
         MensagemDTO[] response = restTemplate.getForObject(resource, MensagemDTO[].class);
+        
+        if(response == null) return new ArrayList<Mensagem>();
+
         Mensagem[] mensagens = new Mensagem[response.length];
         for(int i = 0; i < response.length; i++) {
             mensagens[i] = new Mensagem(response[i]);

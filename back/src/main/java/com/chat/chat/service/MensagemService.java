@@ -1,20 +1,13 @@
 package com.chat.chat.service;
 
-
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.chat.chat.model.Contato;
 import com.chat.chat.model.Mensagem;
 import com.chat.chat.repositories.MensagemRepository;
 import com.chat.chat.dto.MensagemDTO;
-import lombok.extern.log4j.Log4j2;
 
 @Service
-@Log4j2
 public class MensagemService {
 
 	@Autowired
@@ -45,7 +38,6 @@ public class MensagemService {
 	}
 
 	public void deleteMensagem(Long idMensagem) {
-		Optional<Mensagem> optionalMensagem = mensagemRepository.findById(idMensagem);
 		mensagemRepository.deleteById(idMensagem);
 	}
 	
